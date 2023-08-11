@@ -1,0 +1,6 @@
+server:
+  port: 3003
+logging:
+  level:
+    org.springframework.cloud.openfeign: debug
+    org.springframework.cloud.sleuth: debug
