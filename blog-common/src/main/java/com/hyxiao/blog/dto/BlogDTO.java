@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class BlogDTO {
     private Long id;
     private String title;
+    private String description;
     private String content;
     private String author;
     private String category;
@@ -30,6 +31,7 @@ public class BlogDTO {
         blogDTO.setId(blogEntity.getId());
         blogDTO.setTitle(blogEntity.getTitle());
         blogDTO.setContent(blogEntity.getContent());
+        blogDTO.setDescription(blogEntity.getDescription());
         blogDTO.setAuthor(blogEntity.getAuthor());
         blogDTO.setCategory(blogEntity.getCategory());
         blogDTO.setCreatedTime(blogEntity.getCreatedTime());

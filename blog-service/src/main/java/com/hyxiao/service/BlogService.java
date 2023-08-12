@@ -1,6 +1,7 @@
 package com.hyxiao.service;
 
 import com.hyxiao.blog.dto.BlogDTO;
+import com.hyxiao.blog.dto.BlogListDTO;
 import com.hyxiao.blog.dto.BlogQueryDTO;
 import com.hyxiao.blog.entity.BlogEntity;
 import com.hyxiao.blog.repo.BlogRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -26,12 +28,33 @@ public class BlogService {
      * 获取所有博客
      * @return 博客列表
      */
-    public Page<BlogDTO> getBlogsByQuery(BlogQueryDTO blogQueryDTO) {
-//        Pageable pageable = PageRequest.of(blogQueryDTO.getPage() - 1, blogQueryDTO.getPageSize());
+    public BlogListDTO getBlogsByQuery(BlogQueryDTO blogQueryDTO) {
+        // 构建 Pageable 对象, 用于分页查询
+        Pageable pageable = PageRequest.of(blogQueryDTO.getPage() - 1, blogQueryDTO.getPageSize());
+        // 构建查询条件
+        Specification<BlogEntity> specification = (root, criteriaQuery, criteriaBuilder) -> {
+            // 根据分类查询
+            if (blogQueryDTO.getCategory() != null) {
+                return criteriaBuilder.equal(root.get("category"), blogQueryDTO.getCategory());
+            }
+            // 根据关键字查询
+            if (blogQueryDTO.getKeyword() != null) {
+                return criteriaBuilder.like(root.get("title"), "%" + blogQueryDTO.getKeyword() + "%");
+            }
+            return criteriaBuilder.conjunction();
+        };
 
-        return null;
+        // 执行分页查询
+        Page<BlogEntity> blogPage = blogRepository.findAll(specification, pageable);
 
-//        return BlogDTO.convertFrom(blogs);
+        BlogListDTO blogListDTO = new BlogListDTO();
+        blogListDTO.setPage(blogQueryDTO.getPage());
+        blogListDTO.setRows(blogPage.map(BlogDTO::convertFrom).getContent());
+        blogListDTO.setTotal(blogPage.getTotalPages());
+        blogListDTO.setRecords(blogPage.getTotalElements());
+
+        return blogListDTO;
+
     }
 
     /**

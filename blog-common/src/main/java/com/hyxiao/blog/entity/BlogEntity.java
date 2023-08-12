@@ -20,6 +20,8 @@ public class BlogEntity {
 
     @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
+    private String description;
     @Column(columnDefinition = "TEXT")
     private String content;
     @Column(nullable = false)

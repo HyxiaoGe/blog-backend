@@ -2,6 +2,7 @@ package com.hyxiao.blog.repo;
 
 import com.hyxiao.blog.entity.BlogEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @description
  */
 @Repository
-public interface BlogRepository extends JpaRepository<BlogEntity, Long> {
+public interface BlogRepository extends JpaRepository<BlogEntity, Long>, JpaSpecificationExecutor<BlogEntity> {
     // 自定义查询方法，比如按分类查询、按标题模糊查询等
 }
 

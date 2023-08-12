@@ -1,6 +1,7 @@
 package com.hyxiao.controller;
 
 import com.hyxiao.blog.dto.BlogDTO;
+import com.hyxiao.blog.dto.BlogListDTO;
 import com.hyxiao.blog.dto.BlogQueryDTO;
 import com.hyxiao.blog.response.BaseResponse;
 import com.hyxiao.service.BlogService;
@@ -38,7 +39,7 @@ public class BlogController {
         blogQueryDTO.setCategory(category);
         blogQueryDTO.setKeyword(keyword);
 
-        Page<BlogDTO> blogs = blogService.getBlogsByQuery(blogQueryDTO);
+        BlogListDTO blogs = blogService.getBlogsByQuery(blogQueryDTO);
         return BaseResponse.success(blogs);
     }
 
