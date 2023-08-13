@@ -6,7 +6,6 @@ import com.hyxiao.blog.dto.BlogQueryDTO;
 import com.hyxiao.blog.response.BaseResponse;
 import com.hyxiao.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 /**

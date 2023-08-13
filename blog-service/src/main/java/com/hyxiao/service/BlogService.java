@@ -12,7 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Hyxiao
@@ -33,15 +36,16 @@ public class BlogService {
         Pageable pageable = PageRequest.of(blogQueryDTO.getPage() - 1, blogQueryDTO.getPageSize());
         // 构建查询条件
         Specification<BlogEntity> specification = (root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
             // 根据分类查询
-            if (blogQueryDTO.getCategory() != null) {
-                return criteriaBuilder.equal(root.get("category"), blogQueryDTO.getCategory());
+            if (blogQueryDTO.getCategory() != null && !"".equals(blogQueryDTO.getCategory())) {
+                predicates.add(criteriaBuilder.equal(root.get("category"), blogQueryDTO.getCategory()));
             }
             // 根据关键字查询
-            if (blogQueryDTO.getKeyword() != null) {
-                return criteriaBuilder.like(root.get("title"), "%" + blogQueryDTO.getKeyword() + "%");
+            if (blogQueryDTO.getKeyword() != null && !"".equals(blogQueryDTO.getKeyword())) {
+                predicates.add(criteriaBuilder.equal(root.get("title"), "%" + blogQueryDTO.getKeyword() + "%"));
             }
-            return criteriaBuilder.conjunction();
+            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         };
 
         // 执行分页查询
@@ -54,7 +58,6 @@ public class BlogService {
         blogListDTO.setRecords(blogPage.getTotalElements());
 
         return blogListDTO;
-
     }
 
     /**

@@ -41,10 +41,10 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <!-- 引入nacos注册中心 -->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
 
         <!-- 引入nacos作为配置中心 -->
         <dependency>

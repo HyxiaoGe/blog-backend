@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    loadbalancer:
+      nacos:
+        enabled: true
+    nacos:
+      discovery:
+        server-addr: 192.168.111.1:8848
+        username: nacos
+        password: nacos
+    gateway:
+      discovery:
+        locator:
+          enabled: true       # 开启动态路由，从注册中心根据微服务名称获得目标节点
+      routes: # 配置路由规则（数组）
+        - id: blogRoute # 每一项路由都有一个唯一id
+          uri: lb://blog-service        # lb 代表负载均衡，会动态寻址
+          predicates:         # 匹配断言，符合条件的则放行（可以精确到具体的接口名）
+            - Path=/blog/**,    # 请求的时候，则会请求到用户服务中的匹配u路由
+      globalcors:
+        cors-configurations:
+          '[/**]': # 映射路径
+            allowedOriginPatterns: "*"
+            allowedHeaders: "*"
+            allowedMethods: "*"
+            allowCredentials: true
+
+logging:
+  level:
+    org.springframework.cloud.openfeign: debug
+    org.springframework.cloud.sleuth: debug
