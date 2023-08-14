@@ -8,6 +8,10 @@ spring:
     name: comment-service
   profiles:
     active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.111.1:8848
 # 日志级别
 logging:
   level:

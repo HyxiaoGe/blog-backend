@@ -17,6 +17,10 @@ spring:
           uri: lb://blog-service        # lb 代表负载均衡，会动态寻址
           predicates:         # 匹配断言，符合条件的则放行（可以精确到具体的接口名）
             - Path=/blog/**,    # 请求的时候，则会请求到用户服务中的匹配u路由
+        - id: commentRoute # 每一项路由都有一个唯一id
+          uri: lb://comment-service        # lb 代表负载均衡，会动态寻址
+          predicates: # 匹配断言，符合条件的则放行（可以精确到具体的接口名）
+            - Path=/comment/**,    # 请求的时候，则会请求到用户服务中的匹配u路由
       globalcors:
         cors-configurations:
           '[/**]': # 映射路径

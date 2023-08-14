@@ -21,10 +21,9 @@ public class CommentController {
      * 获取所有博客
      * @return 博客列表
      */
-    @GetMapping("/blogId={blogId}")
+    @GetMapping("/blog/{blogId}")
     public BaseResponse getCommentByBlogId(@PathVariable Long blogId) {
-
-        return BaseResponse.success();
+        return BaseResponse.success(commentService.getCommentsByBlogId(blogId));
     }
 
 }
