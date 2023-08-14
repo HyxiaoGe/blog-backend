@@ -26,7 +26,6 @@ public class BlogDTO {
     @JsonProperty("updatedTime")
     private Date updatedTime;
     private int likes;
-    private int favorites;
     private int comments;
 
     public static BlogDTO convertFrom(BlogEntity blogEntity) {
@@ -40,7 +39,6 @@ public class BlogDTO {
         blogDTO.setCreatedTime(blogEntity.getCreatedTime());
         blogDTO.setUpdatedTime(blogEntity.getUpdatedTime());
         blogDTO.setLikes(blogEntity.getLikes());
-        blogDTO.setFavorites(blogEntity.getFavorites());
         blogDTO.setComments(blogEntity.getComments());
         return blogDTO;
     }

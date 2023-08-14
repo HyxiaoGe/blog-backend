@@ -35,8 +35,6 @@ public class BlogEntity {
     @Column(nullable = false)
     private int likes;
     @Column(nullable = false)
-    private int favorites;
-    @Column(nullable = false)
     private int comments;
 
 }

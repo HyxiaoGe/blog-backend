@@ -1,5 +1,6 @@
 package com.hyxiao.comment.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hyxiao.comment.entity.CommentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class CommentDTO {
 
     private Long blogId;
     private String content;
+    @JsonProperty("createdTime")
     private Date createTime;
     private String authorUsername;
     private String authorNickname;

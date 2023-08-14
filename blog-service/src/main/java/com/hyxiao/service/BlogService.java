@@ -83,7 +83,6 @@ public class BlogService {
         blogEntity.setCreatedTime(new Date());
         blogEntity.setUpdatedTime(new Date());
         blogEntity.setLikes(blog.getLikes());
-        blogEntity.setFavorites(blog.getFavorites());
         blogEntity.setComments(blog.getComments());
         this.blogRepository.save(blogEntity);
     }
@@ -101,7 +100,6 @@ public class BlogService {
         blogEntity.setCreatedTime(blog.getCreatedTime());
         blogEntity.setUpdatedTime(blog.getUpdatedTime());
         blogEntity.setLikes(blog.getLikes());
-        blogEntity.setFavorites(blog.getFavorites());
         blogEntity.setComments(blog.getComments());
         this.blogRepository.save(blogEntity);
     }
