@@ -33,6 +33,8 @@ public class BlogEntity {
     @Column(name = "updated_time", nullable = false)
     private Date updatedTime;
     @Column(nullable = false)
+    private int views;
+    @Column(nullable = false)
     private int likes;
     @Column(nullable = false)
     private int comments;

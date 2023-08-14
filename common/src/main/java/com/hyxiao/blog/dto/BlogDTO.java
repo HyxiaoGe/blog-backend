@@ -25,6 +25,7 @@ public class BlogDTO {
     private Date createdTime;
     @JsonProperty("updatedTime")
     private Date updatedTime;
+    private int views;
     private int likes;
     private int comments;
 
@@ -38,6 +39,7 @@ public class BlogDTO {
         blogDTO.setCategory(blogEntity.getCategory());
         blogDTO.setCreatedTime(blogEntity.getCreatedTime());
         blogDTO.setUpdatedTime(blogEntity.getUpdatedTime());
+        blogDTO.setViews(blogEntity.getViews());
         blogDTO.setLikes(blogEntity.getLikes());
         blogDTO.setComments(blogEntity.getComments());
         return blogDTO;

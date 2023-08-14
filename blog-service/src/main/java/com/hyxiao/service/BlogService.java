@@ -5,6 +5,7 @@ import com.hyxiao.blog.dto.BlogListDTO;
 import com.hyxiao.blog.dto.BlogQueryDTO;
 import com.hyxiao.blog.entity.BlogEntity;
 import com.hyxiao.blog.repo.BlogRepository;
+import com.hyxiao.utils.RedisOperator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,8 +25,14 @@ import java.util.List;
  */
 @Service
 public class BlogService {
+
+    private String BLOG_KEY = "blog_";
+
     @Autowired
     private BlogRepository blogRepository;
+
+    @Autowired
+    private RedisOperator redisOperator;
 
     /**
      * 获取所有博客
@@ -112,5 +119,21 @@ public class BlogService {
         this.blogRepository.deleteById(id);
     }
 
-}
+    /**
+     * 增加浏览数
+     * @param host
+     * @param id
+     */
+    public void addViews(String host, Long id) {
+        String key = BLOG_KEY + host  + "_" + id;
+        boolean isExist = this.redisOperator.keyIsExist(key);
+        if (!isExist) {
+            this.redisOperator.increment(BLOG_KEY + id, 1);
+            this.redisOperator.set(key, "一天内只能记为一次浏览数", 60 * 60 * 24);
+        }
+    }
 
+
+
+
+}

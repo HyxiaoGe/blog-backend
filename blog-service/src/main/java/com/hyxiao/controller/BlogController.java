@@ -8,6 +8,8 @@ import com.hyxiao.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author Hyxiao
  * @date 12/08/2023 20:21
@@ -83,6 +85,19 @@ public class BlogController {
     @DeleteMapping("/{id}")
     public BaseResponse deleteBlog(@PathVariable Long id) {
         blogService.deleteBlog(id);
+        return BaseResponse.success();
+    }
+
+    /**
+     * 增加博客浏览量
+     * @param request
+     * @param id
+     * @return
+     */
+    @PostMapping("/addViews/{id}")
+    public BaseResponse addViews(HttpServletRequest request, @PathVariable Long id) {
+        String host = request.getRemoteHost();
+        blogService.addViews(host, id);
         return BaseResponse.success();
     }
 
