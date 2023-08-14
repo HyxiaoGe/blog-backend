@@ -1,4 +1,4 @@
-package com.hyxiao.blog.response;
+package com.hyxiao.response;
 
 import lombok.AllArgsConstructor;
 

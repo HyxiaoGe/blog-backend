@@ -28,9 +28,9 @@ public class BlogEntity {
     private String author;
     @Column(nullable = false)
     private String category;
-    @Column(nullable = false)
+    @Column(name = "created_time", nullable = false)
     private Date createdTime;
-    @Column(nullable = false)
+    @Column(name = "updated_time", nullable = false)
     private Date updatedTime;
     @Column(nullable = false)
     private int likes;

@@ -1,5 +1,6 @@
 package com.hyxiao.blog.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hyxiao.blog.entity.BlogEntity;
 import lombok.Data;
 
@@ -20,7 +21,9 @@ public class BlogDTO {
     private String content;
     private String author;
     private String category;
+    @JsonProperty("createdTime")
     private Date createdTime;
+    @JsonProperty("updatedTime")
     private Date updatedTime;
     private int likes;
     private int favorites;

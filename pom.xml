@@ -12,7 +12,7 @@
         <module>blog-service</module>
         <module>comment-service</module>
         <module>info-service</module>
-        <module>blog-common</module>
+        <module>common</module>
         <module>gateway</module>
     </modules>
 

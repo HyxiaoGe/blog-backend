@@ -3,7 +3,7 @@ package com.hyxiao.controller;
 import com.hyxiao.blog.dto.BlogDTO;
 import com.hyxiao.blog.dto.BlogListDTO;
 import com.hyxiao.blog.dto.BlogQueryDTO;
-import com.hyxiao.blog.response.BaseResponse;
+import com.hyxiao.response.BaseResponse;
 import com.hyxiao.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
