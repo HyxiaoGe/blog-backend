@@ -50,8 +50,9 @@ public class BlogController {
      * @return 博客
      */
     @GetMapping("/{id}")
-    public BaseResponse getBlogById(@PathVariable Long id) {
-        BlogDTO blog = blogService.getBlogById(id);
+    public BaseResponse getBlogById(HttpServletRequest request, @PathVariable Long id) {
+        String host = getHost(request);
+        BlogDTO blog = blogService.getBlogById(host, id);
         return BaseResponse.success(blog);
     }
 
@@ -94,11 +95,30 @@ public class BlogController {
      * @param id
      * @return
      */
-    @PostMapping("/addViews/{id}")
+    @PostMapping("/add_views/{id}")
     public BaseResponse addViews(HttpServletRequest request, @PathVariable Long id) {
-        String host = request.getRemoteHost();
+        String host = getHost(request);
         blogService.addViews(host, id);
         return BaseResponse.success();
+    }
+
+    /**
+     * 增加博客点赞量
+     * @param request
+     * @param id
+     * @return
+     */
+    @PostMapping("/operate_like/{id}")
+    public BaseResponse operateLike(HttpServletRequest request, @PathVariable Long id) {
+        String host = getHost(request);
+        Boolean isLike = blogService.operateLikeNum(host, id);
+        BlogDTO blogDTO = blogService.getBlogById(host, id);
+        blogDTO.setIsLiked(isLike);
+        return BaseResponse.success(blogDTO);
+    }
+
+    private String getHost(HttpServletRequest request) {
+        return request.getRemoteHost();
     }
 
 }

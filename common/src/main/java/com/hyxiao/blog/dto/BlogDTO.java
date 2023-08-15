@@ -27,6 +27,8 @@ public class BlogDTO {
     private Date updatedTime;
     private int views;
     private int likes;
+    @JsonProperty("isLiked")
+    private Boolean isLiked;
     private int comments;
 
     public static BlogDTO convertFrom(BlogEntity blogEntity) {

@@ -26,7 +26,8 @@ import java.util.List;
 @Service
 public class BlogService {
 
-    private String BLOG_KEY = "blog_";
+    private String BLOG_VIEW_KEY = "blog_view_count_";
+    private String BLOG_LIKE_KEY = "blog_like_count_";
 
     @Autowired
     private BlogRepository blogRepository;
@@ -69,18 +70,20 @@ public class BlogService {
 
     /**
      * 根据id获取博客
-     * @param id
      * @return 博客
      */
-    public BlogDTO getBlogById(Long id) {
+    public BlogDTO getBlogById(String host, Long id) {
         BlogEntity blog = blogRepository.findById(id).orElse(null);
         assert blog != null;
-        return BlogDTO.convertFrom(blog);
+        String key = BLOG_LIKE_KEY + host  + "_" + id;
+        boolean isExist = this.validKeyIsExist(key);
+        BlogDTO blogDTO = BlogDTO.convertFrom(blog);
+        blogDTO.setIsLiked(isExist);
+        return blogDTO;
     }
 
     /**
      * 创建博客
-     * @param blog
      */
     public void createBlog(BlogDTO blog) {
         BlogEntity blogEntity = new BlogEntity();
@@ -96,7 +99,6 @@ public class BlogService {
 
     /**
      * 更新博客
-     * @param blog
      */
     public void updateBlog(BlogDTO blog) {
         BlogEntity blogEntity = new BlogEntity();
@@ -113,7 +115,6 @@ public class BlogService {
 
     /**
      * 删除博客
-     * @param id
      */
     public void deleteBlog(Long id) {
         this.blogRepository.deleteById(id);
@@ -121,19 +122,32 @@ public class BlogService {
 
     /**
      * 增加浏览数
-     * @param host
-     * @param id
      */
     public void addViews(String host, Long id) {
-        String key = BLOG_KEY + host  + "_" + id;
-        boolean isExist = this.redisOperator.keyIsExist(key);
+        String key = BLOG_VIEW_KEY + host  + "_" + id;
+        boolean isExist = this.validKeyIsExist(key);
         if (!isExist) {
-            this.redisOperator.increment(BLOG_KEY + id, 1);
-            this.redisOperator.set(key, "一天内只能记为一次浏览数", 60 * 60 * 24);
+            this.redisOperator.increment(BLOG_VIEW_KEY + id, 1);
+            this.redisOperator.set(key, "24小时内只能记为一次浏览数", 60 * 60 * 24);
         }
     }
 
+    public Boolean operateLikeNum(String host, Long id) {
+        String key = BLOG_LIKE_KEY + host  + "_" + id;
+        boolean isExist = this.validKeyIsExist(key);
+        if (!isExist) {
+            this.redisOperator.increment(BLOG_LIKE_KEY + id, 1);
+            this.redisOperator.set(key, "7 天内只能记为一次点赞", 60 * 60 * 24 * 7);
+            return true;
+        } else {
+            this.redisOperator.del(key);
+            this.redisOperator.decrement(BLOG_LIKE_KEY + id, 1);
+            return false;
+        }
+    }
 
-
+    public Boolean validKeyIsExist(String key) {
+        return this.redisOperator.keyIsExist(key);
+    }
 
 }
