@@ -11,7 +11,5 @@ import org.springframework.stereotype.Repository;
  * @description
  */
 @Repository
-public interface BlogRepository extends JpaRepository<BlogEntity, Long>, JpaSpecificationExecutor<BlogEntity> {
-    // 自定义查询方法，比如按分类查询、按标题模糊查询等
-}
+public interface BlogRepository extends JpaRepository<BlogEntity, Long>, JpaSpecificationExecutor<BlogEntity> { }
 

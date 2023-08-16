@@ -5,8 +5,6 @@ import com.hyxiao.blog.entity.BlogEntity;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Hyxiao
@@ -45,10 +43,6 @@ public class BlogDTO {
         blogDTO.setLikes(blogEntity.getLikes());
         blogDTO.setComments(blogEntity.getComments());
         return blogDTO;
-    }
-
-    public static List<BlogDTO> convertFrom(List<BlogEntity> blogEntities) {
-        return blogEntities.stream().map(BlogDTO::convertFrom).collect(Collectors.toList());
     }
 
 }
