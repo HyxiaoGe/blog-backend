@@ -1,6 +1,10 @@
 server:
   port: 3001
 spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.111.1:8848
   jpa:
     hibernate:
       ddl-auto: none
@@ -8,6 +12,7 @@ spring:
       hibernate:
         show_sql: true
         format: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
   jackson:
     property-naming-strategy: SNAKE_CASE
     serialization:

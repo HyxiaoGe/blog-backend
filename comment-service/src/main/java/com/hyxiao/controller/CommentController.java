@@ -2,6 +2,7 @@ package com.hyxiao.controller;
 
 import com.hyxiao.response.BaseResponse;
 import com.hyxiao.service.CommentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/comment")
+@Slf4j
 public class CommentController {
 
     @Autowired
@@ -23,6 +25,7 @@ public class CommentController {
      */
     @GetMapping("/blog/{blogId}")
     public BaseResponse getCommentByBlogId(@PathVariable Long blogId) {
+        log.info("blogId: {}", blogId);
         return BaseResponse.success(commentService.getCommentsByBlogId(blogId));
     }
 

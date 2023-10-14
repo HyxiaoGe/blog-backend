@@ -7,11 +7,7 @@ spring:
   application:
     name: blog-service
   profiles:
-    active: dev
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 192.168.111.1:8848
+    active: prod
 # 日志级别
 logging:
   level:

@@ -5,6 +5,7 @@ import com.hyxiao.blog.dto.BlogListDTO;
 import com.hyxiao.blog.dto.BlogQueryDTO;
 import com.hyxiao.response.BaseResponse;
 import com.hyxiao.service.BlogService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/blog")
+@Slf4j
 public class BlogController {
 
     @Autowired
@@ -33,7 +35,7 @@ public class BlogController {
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String keyword
     ) {
-
+        log.info("page: {}, pageSize: {}, category: {}, keyword: {}", page, pageSize, category, keyword);
         BlogQueryDTO blogQueryDTO = new BlogQueryDTO();
         blogQueryDTO.setPage(page);
         blogQueryDTO.setPageSize(pageSize);
@@ -51,6 +53,7 @@ public class BlogController {
      */
     @GetMapping("/{id}")
     public BaseResponse getBlogById(HttpServletRequest request, @PathVariable Long id) {
+        log.info("id: {}", id);
         String host = getHost(request);
         BlogDTO blog = blogService.getBlogById(host, id);
         return BaseResponse.success(blog);
@@ -98,6 +101,7 @@ public class BlogController {
     @PostMapping("/add_views/{id}")
     public BaseResponse addViews(HttpServletRequest request, @PathVariable Long id) {
         String host = getHost(request);
+        log.info("host: {}, id: {}", host, id);
         blogService.addViews(host, id);
         return BaseResponse.success();
     }

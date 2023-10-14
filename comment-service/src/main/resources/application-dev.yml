@@ -1,6 +1,10 @@
 server:
   port: 3002
 spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.111.1:8848
   jpa:
     hibernate:
       ddl-auto: none

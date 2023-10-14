@@ -6,6 +6,7 @@ import com.hyxiao.blog.dto.BlogQueryDTO;
 import com.hyxiao.blog.entity.BlogEntity;
 import com.hyxiao.blog.repo.BlogRepository;
 import com.hyxiao.utils.RedisOperator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +25,7 @@ import java.util.List;
  * @description
  */
 @Service
+@Slf4j
 public class BlogService {
 
     private String BLOG_VIEW_KEY = "blog_view_count_";
@@ -40,6 +42,7 @@ public class BlogService {
      * @return 博客列表
      */
     public BlogListDTO getBlogsByQuery(BlogQueryDTO blogQueryDTO) {
+        log.info("blogQueryDTO: {}", blogQueryDTO);
         // 构建 Pageable 对象, 用于分页查询
         Pageable pageable = PageRequest.of(blogQueryDTO.getPage() - 1, blogQueryDTO.getPageSize());
         // 构建查询条件
@@ -51,7 +54,8 @@ public class BlogService {
             }
             // 根据关键字查询
             if (blogQueryDTO.getKeyword() != null && !"".equals(blogQueryDTO.getKeyword())) {
-                predicates.add(criteriaBuilder.equal(root.get("title"), "%" + blogQueryDTO.getKeyword() + "%"));
+                log.info("keyword: {}", blogQueryDTO.getKeyword());
+                predicates.add(criteriaBuilder.like(root.get("title"), "%" + blogQueryDTO.getKeyword() + "%"));
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
         };
