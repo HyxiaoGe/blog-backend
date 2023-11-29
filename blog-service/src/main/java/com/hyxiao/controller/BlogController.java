@@ -98,11 +98,11 @@ public class BlogController {
      * @param id
      * @return
      */
-    @PostMapping("/add_views/{id}")
-    public BaseResponse addViews(HttpServletRequest request, @PathVariable Long id) {
+    @PostMapping("/incrementview/{id}")
+    public BaseResponse incrementView(HttpServletRequest request, @PathVariable Long id) {
         String host = getHost(request);
         log.info("host: {}, id: {}", host, id);
-        blogService.addViews(host, id);
+        blogService.incrementView(host, id);
         return BaseResponse.success();
     }
 
@@ -112,10 +112,10 @@ public class BlogController {
      * @param id
      * @return
      */
-    @PostMapping("/operate_like/{id}")
-    public BaseResponse operateLike(HttpServletRequest request, @PathVariable Long id) {
+    @PostMapping("/incrementlike/{id}")
+    public BaseResponse incrementLike(HttpServletRequest request, @PathVariable Long id) {
         String host = getHost(request);
-        Boolean isLike = blogService.operateLikeNum(host, id);
+        Boolean isLike = blogService.incrementLike(host, id);
         BlogDTO blogDTO = blogService.getBlogById(host, id);
         blogDTO.setIsLiked(isLike);
         return BaseResponse.success(blogDTO);

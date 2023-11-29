@@ -127,16 +127,11 @@ public class BlogService {
     /**
      * 增加浏览数
      */
-    public void addViews(String host, Long id) {
-        String key = BLOG_VIEW_KEY + host  + "_" + id;
-        boolean isExist = this.validKeyIsExist(key);
-        if (!isExist) {
-            this.redisOperator.increment(BLOG_VIEW_KEY + id, 1);
-            this.redisOperator.set(key, "24小时内只能记为一次浏览数", 60 * 60 * 24);
-        }
+    public void incrementView(String host, Long id) {
+        this.redisOperator.increment(BLOG_VIEW_KEY + id, 1);
     }
 
-    public Boolean operateLikeNum(String host, Long id) {
+    public Boolean incrementLike(String host, Long id) {
         String key = BLOG_LIKE_KEY + host  + "_" + id;
         boolean isExist = this.validKeyIsExist(key);
         if (!isExist) {
