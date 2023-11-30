@@ -28,7 +28,7 @@ import java.util.List;
 @Slf4j
 public class BlogService {
 
-    private String BLOG_VIEW_KEY = "blog_view_count_";
+    private String BLOG_VIEWCOUNT_KEY = "blog:viewcount:";
     private String BLOG_LIKE_KEY = "blog_like_count_";
 
     @Autowired
@@ -127,8 +127,8 @@ public class BlogService {
     /**
      * 增加浏览数
      */
-    public void incrementView(String host, Long id) {
-        this.redisOperator.increment(BLOG_VIEW_KEY + id, 1);
+    public void incrementView(Long id) {
+        this.redisOperator.increment(BLOG_VIEWCOUNT_KEY + id, 1);
     }
 
     public Boolean incrementLike(String host, Long id) {

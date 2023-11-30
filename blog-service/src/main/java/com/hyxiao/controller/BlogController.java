@@ -94,15 +94,12 @@ public class BlogController {
 
     /**
      * 增加博客浏览量
-     * @param request
      * @param id
      * @return
      */
     @PostMapping("/incrementview/{id}")
-    public BaseResponse incrementView(HttpServletRequest request, @PathVariable Long id) {
-        String host = getHost(request);
-        log.info("host: {}, id: {}", host, id);
-        blogService.incrementView(host, id);
+    public BaseResponse incrementView(@PathVariable Long id) {
+        blogService.incrementView(id);
         return BaseResponse.success();
     }
 
