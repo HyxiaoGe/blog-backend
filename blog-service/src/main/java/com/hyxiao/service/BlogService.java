@@ -66,14 +66,24 @@ public class BlogService {
         BlogListDTO blogListDTO = new BlogListDTO();
         blogListDTO.setPage(blogQueryDTO.getPage());
         blogListDTO.setRows(blogPage.map(BlogDTO::convertFrom).getContent());
-        blogListDTO.setTotal(blogPage.getTotalPages());
-        blogListDTO.setRecords(blogPage.getTotalElements());
+        blogListDTO.setTotal(blogPage.getTotalElements());
 
         return blogListDTO;
     }
 
     /**
      * 根据id获取博客
+     * @return 博客列表
+     */
+    public BlogListDTO getTopBlogs() {
+        List<BlogEntity> topBlogs = blogRepository.findTopBlogs();
+        BlogListDTO blogListDTO = new BlogListDTO();
+        blogListDTO.setRows(topBlogs);
+        return blogListDTO;
+    }
+
+    /**
+     * 获取根据浏览量排序前十的博客
      * @return 博客
      */
     public BlogDTO getBlogById(String host, Long id) {
@@ -92,7 +102,6 @@ public class BlogService {
     public void createBlog(BlogDTO blog) {
         BlogEntity blogEntity = new BlogEntity();
         blogEntity.setTitle(blog.getTitle());
-        blogEntity.setAuthor(blog.getAuthor());
         blogEntity.setCategory(blog.getCategory());
         blogEntity.setCreatedTime(new Date());
         blogEntity.setUpdatedTime(new Date());
@@ -108,7 +117,6 @@ public class BlogService {
         BlogEntity blogEntity = new BlogEntity();
         blogEntity.setId(blog.getId());
         blogEntity.setTitle(blog.getTitle());
-        blogEntity.setAuthor(blog.getAuthor());
         blogEntity.setCategory(blog.getCategory());
         blogEntity.setCreatedTime(blog.getCreatedTime());
         blogEntity.setUpdatedTime(blog.getUpdatedTime());

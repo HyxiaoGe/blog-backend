@@ -25,8 +25,6 @@ public class BlogEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
     @Column(nullable = false)
-    private String author;
-    @Column(nullable = false)
     private String category;
     @Column(name = "created_time", nullable = false)
     private Date createdTime;

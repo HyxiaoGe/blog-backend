@@ -17,7 +17,6 @@ public class BlogDTO {
     private String title;
     private String description;
     private String content;
-    private String author;
     private String category;
     @JsonProperty("createdTime")
     private Date createdTime;
@@ -35,7 +34,6 @@ public class BlogDTO {
         blogDTO.setTitle(blogEntity.getTitle());
         blogDTO.setContent(blogEntity.getContent());
         blogDTO.setDescription(blogEntity.getDescription());
-        blogDTO.setAuthor(blogEntity.getAuthor());
         blogDTO.setCategory(blogEntity.getCategory());
         blogDTO.setCreatedTime(blogEntity.getCreatedTime());
         blogDTO.setUpdatedTime(blogEntity.getUpdatedTime());

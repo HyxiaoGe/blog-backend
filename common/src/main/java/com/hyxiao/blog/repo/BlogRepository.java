@@ -3,7 +3,10 @@ package com.hyxiao.blog.repo;
 import com.hyxiao.blog.entity.BlogEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author Hyxiao
@@ -11,5 +14,10 @@ import org.springframework.stereotype.Repository;
  * @description
  */
 @Repository
-public interface BlogRepository extends JpaRepository<BlogEntity, Long>, JpaSpecificationExecutor<BlogEntity> { }
+public interface BlogRepository extends JpaRepository<BlogEntity, Long>, JpaSpecificationExecutor<BlogEntity> {
+
+    @Query(value = "SELECT b.* FROM blog b ORDER BY b.views DESC limit 10", nativeQuery = true)
+    List<BlogEntity> findTopBlogs();
+
+}
 

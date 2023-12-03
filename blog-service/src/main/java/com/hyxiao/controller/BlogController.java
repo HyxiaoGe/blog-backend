@@ -59,6 +59,12 @@ public class BlogController {
         return BaseResponse.success(blog);
     }
 
+    @GetMapping("/top")
+    public BaseResponse getTopBlog() {
+        BlogListDTO topBlogs = blogService.getTopBlogs();
+        return BaseResponse.success(topBlogs);
+    }
+
     /**
      * 创建博客
      * @param blog
