@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,8 @@ import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Hyxiao
@@ -44,7 +47,7 @@ public class BlogService {
     public BlogListDTO getBlogsByQuery(BlogQueryDTO blogQueryDTO) {
         log.info("blogQueryDTO: {}", blogQueryDTO);
         // 构建 Pageable 对象, 用于分页查询
-        Pageable pageable = PageRequest.of(blogQueryDTO.getPage() - 1, blogQueryDTO.getPageSize());
+        Pageable pageable = PageRequest.of(blogQueryDTO.getPage() - 1, blogQueryDTO.getPageSize(), Sort.by("createdTime").descending());
         // 构建查询条件
         Specification<BlogEntity> specification = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -72,7 +75,7 @@ public class BlogService {
     }
 
     /**
-     * 根据id获取博客
+     * 获取博客列表
      * @return 博客列表
      */
     public BlogListDTO getTopBlogs() {
@@ -80,6 +83,19 @@ public class BlogService {
         BlogListDTO blogListDTO = new BlogListDTO();
         blogListDTO.setRows(topBlogs);
         return blogListDTO;
+    }
+
+    /**
+     * 获取博客分类
+     * @return 博客分类
+     */
+    public Map<String, Long> getBlogCategory() {
+        List<Object[]> categorys = blogRepository.countTotalPostsByCategory();
+
+        return categorys.stream().collect(Collectors.toMap(
+                category -> (String) category[0],
+                category -> (Long) category[1]
+        ));
     }
 
     /**

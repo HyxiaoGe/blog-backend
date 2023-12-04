@@ -16,8 +16,11 @@ import java.util.List;
 @Repository
 public interface BlogRepository extends JpaRepository<BlogEntity, Long>, JpaSpecificationExecutor<BlogEntity> {
 
-    @Query(value = "SELECT b.* FROM blog b ORDER BY b.views DESC limit 10", nativeQuery = true)
+    @Query(value = "SELECT b.* FROM blog b ORDER BY b.views DESC limit 6", nativeQuery = true)
     List<BlogEntity> findTopBlogs();
+
+    @Query("SELECT b.category as category, COUNT(b) as count FROM BlogEntity b GROUP BY b.category")
+    List<Object[]> countTotalPostsByCategory();
 
 }
 
