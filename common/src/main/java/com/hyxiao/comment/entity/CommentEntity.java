@@ -24,9 +24,7 @@ public class CommentEntity {
     private String content;
     @Column(name = "created_time", nullable = false)
     private Date createTime;
-    @Column(name = "author_user_name", nullable = false)
-    private String authorUsername;
-    @Column(name = "author_nick_name", nullable = false)
-    private String authorNickname;
+    @Column(name = "user_name", nullable = false)
+    private String username;
 
 }

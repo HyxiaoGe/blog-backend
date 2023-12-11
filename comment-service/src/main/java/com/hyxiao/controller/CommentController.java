@@ -1,5 +1,6 @@
 package com.hyxiao.controller;
 
+import com.hyxiao.comment.dto.CommentDTO;
 import com.hyxiao.response.BaseResponse;
 import com.hyxiao.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,13 +21,23 @@ public class CommentController {
     private CommentService commentService;
 
     /**
-     * 获取所有博客
-     * @return 博客列表
+     * 获取博客下的所有评论
+     * @return 评论列表
      */
-    @GetMapping("/blog/{blogId}")
-    public BaseResponse getCommentByBlogId(@PathVariable Long blogId) {
+    @GetMapping("/blog_comment/{blogId}")
+    public BaseResponse getBlogComment(@PathVariable Long blogId) {
         log.info("blogId: {}", blogId);
         return BaseResponse.success(commentService.getCommentsByBlogId(blogId));
+    }
+
+    @PostMapping("")
+    public BaseResponse addComment(@RequestBody CommentDTO commentDTO) {
+        Long blogId = commentDTO.getBlogId();
+        String content = commentDTO.getContent();
+        log.info("blogId: {}, content: {}", blogId, content);
+        commentService.addComment(blogId, content);
+
+        return BaseResponse.success();
     }
 
 }

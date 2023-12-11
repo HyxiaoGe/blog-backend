@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,20 +19,14 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class CommentDTO {
 
+    @JsonProperty("blogId")
     private Long blogId;
     private String content;
-    @JsonProperty("createdTime")
-    private Date createTime;
-    private String authorUsername;
-    private String authorNickname;
 
     public static CommentDTO convertFrom(CommentEntity commentEntity) {
         CommentDTO blogDTO = new CommentDTO();
         blogDTO.setBlogId(commentEntity.getBlogId());
         blogDTO.setContent(commentEntity.getContent());
-        blogDTO.setCreateTime(commentEntity.getCreateTime());
-        blogDTO.setAuthorUsername(commentEntity.getAuthorUsername());
-        blogDTO.setAuthorNickname(commentEntity.getAuthorNickname());
 
         return blogDTO;
     }

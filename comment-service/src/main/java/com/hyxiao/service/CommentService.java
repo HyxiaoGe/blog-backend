@@ -24,5 +24,9 @@ public class CommentService {
         return CommentDTO.convertFrom(commentEntities);
     }
 
+    public void addComment(Long blogId, String content) {
+
+
+    }
 }
 
