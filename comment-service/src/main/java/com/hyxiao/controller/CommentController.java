@@ -37,7 +37,7 @@ public class CommentController {
         log.info("blogId: {}, content: {}", blogId, content);
         commentService.addComment(blogId, content);
 
-        return BaseResponse.success();
+        return BaseResponse.success("");
     }
 
 }

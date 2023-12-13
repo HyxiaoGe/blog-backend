@@ -15,16 +15,16 @@ import java.util.Date;
 @Table(name = "comment")
 public class CommentEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "blog_id", nullable = false)
+
+    @Column(nullable = false)
     private Long blogId;
-    @Column(name = "content", nullable = false)
+    @Column(nullable = false)
     private String content;
-    @Column(name = "created_time", nullable = false)
-    private Date createTime;
     @Column(name = "user_name", nullable = false)
-    private String username;
+    private String userName;
+    @Column(name = "created_time", nullable = false)
+    private Date createdTime;
 
 }
