@@ -27,7 +27,7 @@ public class RabbitMQConfig {
         // topic: 通过routingKey模糊匹配的消息才会被转发到绑定的队列
         // headers: 通过headers匹配的消息才会被转发到绑定的队列
         // fanout: 不需要routingKey, 所有消息都会被转发到绑定的队列
-        return ExchangeBuilder.topicExchange(COMMENT_EXCHANGE).durable(true).build();
+        return ExchangeBuilder.directExchange(COMMENT_EXCHANGE).durable(true).build();
     }
 
     // 创建绑定关系
