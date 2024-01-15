@@ -16,9 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 public class BlogListDTO {
 
-    private int page;			// 当前页数
-    private long total;			// 总记录数
-    private List<?> rows;		// 每行显示的内容
+    private int page;            // 当前页数
+    private long total;            // 总记录数
+    private List<?> rows;        // 每行显示的内容
 
 }
 

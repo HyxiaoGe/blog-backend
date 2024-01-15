@@ -31,7 +31,7 @@ public class ScheduledTasks {
                 int viewCount = Integer.parseInt(redisOperator.get(key));
                 Long blogId = Long.valueOf(key.split(":")[2]);
                 BlogEntity blogEntity = blogRepository.findById(blogId).orElse(null);
-                if (blogEntity != null){
+                if (blogEntity != null) {
                     int difference = viewCount - blogEntity.getViews();
                     if (difference > 0) {
                         blogEntity.setViews(viewCount);

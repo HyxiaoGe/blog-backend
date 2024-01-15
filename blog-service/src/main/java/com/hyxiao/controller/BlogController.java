@@ -27,15 +27,11 @@ public class BlogController {
 
     /**
      * 获取所有博客
+     *
      * @return 博客列表
      */
     @GetMapping("/list")
-    public BaseResponse list(
-            @RequestParam(required = false, defaultValue = "1") Integer page,
-            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) String keyword
-    ) {
+    public BaseResponse list(@RequestParam(required = false, defaultValue = "1") Integer page, @RequestParam(required = false, defaultValue = "10") Integer pageSize, @RequestParam(required = false) String category, @RequestParam(required = false) String keyword) {
         log.info("page: {}, pageSize: {}, category: {}, keyword: {}", page, pageSize, category, keyword);
         BlogQueryDTO blogQueryDTO = new BlogQueryDTO();
         blogQueryDTO.setPage(page);
@@ -49,6 +45,7 @@ public class BlogController {
 
     /**
      * 根据博客id获取博客
+     *
      * @param id
      * @return 博客
      */
@@ -74,6 +71,7 @@ public class BlogController {
 
     /**
      * 创建博客
+     *
      * @param blog
      * @return
      */
@@ -85,6 +83,7 @@ public class BlogController {
 
     /**
      * 修改博客
+     *
      * @param blog
      * @return
      */
@@ -96,6 +95,7 @@ public class BlogController {
 
     /**
      * 删除博客
+     *
      * @param id
      * @return
      */
@@ -107,6 +107,7 @@ public class BlogController {
 
     /**
      * 增加博客浏览量
+     *
      * @param id
      * @return
      */
@@ -118,6 +119,7 @@ public class BlogController {
 
     /**
      * 增加博客点赞量
+     *
      * @param request
      * @param id
      * @return

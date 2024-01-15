@@ -9,6 +9,7 @@ public class JsonUtil {
 
     /**
      * 将对象转换为JSON字符串
+     *
      * @param obj 转换对象
      * @return JSON字符串
      */
@@ -22,9 +23,10 @@ public class JsonUtil {
 
     /**
      * 将JSON字符串转换为对象
-     * @param json JSON字符串
+     *
+     * @param json  JSON字符串
      * @param clazz 对象类型
-     * @param <T> 对象类型
+     * @param <T>   对象类型
      * @return 对象
      */
     public static <T> T toObject(String json, Class<T> clazz) {

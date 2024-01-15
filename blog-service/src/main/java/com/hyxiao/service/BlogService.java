@@ -42,6 +42,7 @@ public class BlogService {
 
     /**
      * 获取所有博客
+     *
      * @return 博客列表
      */
     public BlogListDTO getBlogsByQuery(BlogQueryDTO blogQueryDTO) {
@@ -76,6 +77,7 @@ public class BlogService {
 
     /**
      * 获取博客列表
+     *
      * @return 博客列表
      */
     public BlogListDTO getTopBlogs() {
@@ -87,25 +89,24 @@ public class BlogService {
 
     /**
      * 获取博客分类
+     *
      * @return 博客分类
      */
     public Map<String, Long> getBlogCategory() {
         List<Object[]> categorys = blogRepository.countTotalPostsByCategory();
 
-        return categorys.stream().collect(Collectors.toMap(
-                category -> (String) category[0],
-                category -> (Long) category[1]
-        ));
+        return categorys.stream().collect(Collectors.toMap(category -> (String) category[0], category -> (Long) category[1]));
     }
 
     /**
      * 获取根据浏览量排序前十的博客
+     *
      * @return 博客
      */
     public BlogDTO getBlogById(String host, Long id) {
         BlogEntity blog = blogRepository.findById(id).orElse(null);
         assert blog != null;
-        String key = BLOG_LIKE_KEY + host  + "_" + id;
+        String key = BLOG_LIKE_KEY + host + "_" + id;
         boolean isExist = this.validKeyIsExist(key);
         BlogDTO blogDTO = BlogDTO.convertFrom(blog);
         blogDTO.setIsLiked(isExist);
@@ -156,7 +157,7 @@ public class BlogService {
     }
 
     public Boolean incrementLike(String host, Long id) {
-        String key = BLOG_LIKE_KEY + host  + "_" + id;
+        String key = BLOG_LIKE_KEY + host + "_" + id;
         boolean isExist = this.validKeyIsExist(key);
         if (!isExist) {
             this.redisOperator.increment(BLOG_LIKE_KEY + id, 1);
