@@ -27,7 +27,7 @@ public class BlogController {
 
     /**
      * 获取所有博客
-     *
+     * 测试
      * @return 博客列表
      */
     @GetMapping("/list")
