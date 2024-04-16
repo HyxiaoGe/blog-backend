@@ -1,5 +1,5 @@
 # 基于Java运行时环境的镜像
-FROM openjdk:8-jdk-alpine
+FROM openjdk:11-jdk-alpine
 
 # 变量，表示传递到java -jar命令的参数
 ARG JAR_FILE=blog-service.jar
